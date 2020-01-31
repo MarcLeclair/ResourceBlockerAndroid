@@ -1,0 +1,4 @@
+# ninja log v5
+2	109	0	CMakeFiles/native-lib.dir/src/main/cpp/JNIResourceBlocker.cpp.o	b93b95ef266a84e5
+1	1723	0	CMakeFiles/native-lib.dir/src/main/cpp/ResourceBlocker.cpp.o	cfd607654eccd6f8
+1724	2034	0	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	d0d3b0fdcf6f95cb
