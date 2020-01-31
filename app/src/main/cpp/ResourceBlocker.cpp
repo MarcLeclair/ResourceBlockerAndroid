@@ -40,7 +40,7 @@ void ResourceBlocker::useFullCPU()
         ss << std::this_thread::get_id();
         std::string idstr = ss.str();
 
-      __android_log_print(ANDROID_LOG_ERROR, "Starting CPU Load on thread", "%s", idstr.c_str());
+      __android_log_print(ANDROID_LOG_ERROR, "Starting CPU Load on thread ", "%s", idstr.c_str());
       const uint32_t kCyclesBeforeCheck = 100000;
       while (!kTerminateCPU) {
         default_random_engine generator;
@@ -57,12 +57,11 @@ void ResourceBlocker::useFullCPU()
 
 void ResourceBlocker::useMemory(uint32_t aMBPerSec)
     {
-
         std::ostringstream ss;
         ss << std::this_thread::get_id();
         std::string idstr = ss.str();
 
-        __android_log_print(ANDROID_LOG_ERROR, "Starting CPU Load on thread", "%s", idstr.c_str());
+      __android_log_print(ANDROID_LOG_ERROR, "Starting useMemory on thread", "%s", idstr.c_str());
       // Divide by 2 since we do read and writes.
       uint32_t mbPer10MS = aMBPerSec / 200;
 
@@ -89,8 +88,9 @@ void ResourceBlocker::useMemory(uint32_t aMBPerSec)
       free(block2);
     }
 
-void ResourceBlocker::reconfigureMemory(uint32_t pressure, uint32_t threadCount)
+void ResourceBlocker::reconfigureMemory(uint32_t mbPerSec, uint32_t threadCount)
     {
+      __android_log_print(ANDROID_LOG_ERROR, "Reconfiguring memory with ", "%s, and # of threads is, %s", std::to_string(mbPerSec).c_str(),  std::to_string(threadCount).c_str());
       kTerminateMemory = true;
       for (thread& thread : kMemoryThreads) {
         thread.join();
@@ -99,7 +99,7 @@ void ResourceBlocker::reconfigureMemory(uint32_t pressure, uint32_t threadCount)
       kTerminateMemory = false;
 
       for (uint32_t i = 0; i < threadCount; i++) {
-        kMemoryThreads.push_back(thread([this] {this->useMemory(2000);}));
+        kMemoryThreads.push_back(thread([this, mbPerSec] {this->useMemory(mbPerSec);}));
     #ifdef WIN32
         DWORD_PTR threadAffinity = (DWORD_PTR)(1 << i);
         // Set thread affinity for these to minimize cache polution caused accross logical processors.
@@ -114,10 +114,8 @@ void ResourceBlocker::reconfigureCPU(uint32_t numCores)
       SYSTEM_INFO sysInfo;
       ::GetSystemInfo(&sysInfo);
       numCores = sysInfo.dwNumberOfProcessors;
-    #else
-      numCores = 5;
     #endif
-      uint32_t threadCount = 5;
+    __android_log_print(ANDROID_LOG_ERROR, "ReconfigureCPU", "Thread # is %s", std::to_string(numCores).c_str());
       kTerminateCPU = true;
       for (thread& thread : kCPUThreads) {
         thread.join();
@@ -125,7 +123,7 @@ void ResourceBlocker::reconfigureCPU(uint32_t numCores)
       kCPUThreads.clear();
       kTerminateCPU = false;
 
-      for (uint32_t i = 0; i < threadCount; i++) {
+      for (uint32_t i = 0; i < numCores; i++) {
         kCPUThreads.push_back(thread([this] {this->useFullCPU();}));
       }
     }
@@ -182,3 +180,4 @@ double ResourceBlocker::getCurrentValue() {
 
     return percent;
 }
+

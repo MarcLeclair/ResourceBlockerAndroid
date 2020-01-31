@@ -17,5 +17,7 @@
     <string name="init_resourceBlocker">start Resource Blocker</string>
     <string name="full_cpu_load">Full Cpu Load</string>
     <string name="full_memory_load">Full Memory Load</string>
-    <string name="next_step_button">Navigate next step</string>
+    <string name="number_of_threads"># of Threads for CPU load</string>
+    <string name="memory_speed">avg MB / sec</string>
+    <string name="memory_num_threads"># of threads for memory</string>
 </resources>

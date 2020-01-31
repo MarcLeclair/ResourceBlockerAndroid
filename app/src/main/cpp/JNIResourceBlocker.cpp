@@ -17,13 +17,13 @@ jint Java_org_mozilla_ResourceBlockerAndroid_JNIResourceBlocker_startResourceBlo
   }
 
 jint Java_org_mozilla_ResourceBlockerAndroid_JNIResourceBlocker_useFullCPU(JNIEnv *env,
-                                                                                        jobject thiz){
-    r->reconfigureCPU(0);
+                                                                                        jobject thiz, jint numOfThreads){
+    r->reconfigureCPU(numOfThreads);
     return 0;
     }
 jint Java_org_mozilla_ResourceBlockerAndroid_JNIResourceBlocker_useFullMemory(JNIEnv *env,
-                                                                                jobject thiz){
-    r->reconfigureMemory(0,1);
+                                                                                jobject thiz,jint numOfThreads, jint aMBperSec){
+    r->reconfigureMemory(aMBperSec, numOfThreads);
     return 0;
 }
 }

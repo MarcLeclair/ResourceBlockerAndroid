@@ -11,8 +11,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
@@ -52,9 +51,9 @@
         android:id="@+id/startFullCpuLoad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/full_cpu_load"
         app:layout_constraintBottom_toTopOf="@id/useFullMemory"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,12 +66,54 @@
         android:id="@+id/useFullMemory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/full_memory_load"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startFullCpuLoad" />
+
+    <EditText
+        android:id="@+id/numOfThreads"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/number_of_threads"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/startFullCpuLoad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/initResourceBlocker" />
+
+    <EditText
+        android:id="@+id/memoryUsed"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/memory_speed"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/useFullMemory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/threadsForMemory"
+        app:layout_constraintTop_toBottomOf="@+id/startFullCpuLoad"
+        app:layout_constraintVertical_bias="0.535" />
+
+    <EditText
+        android:id="@+id/threadsForMemory"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/memory_num_threads"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/useFullMemory"
+        app:layout_constraintEnd_toStartOf="@+id/memoryUsed"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startFullCpuLoad" />

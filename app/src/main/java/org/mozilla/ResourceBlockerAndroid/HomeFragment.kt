@@ -19,6 +19,8 @@ package org.mozilla.ResourceBlockerAndroid
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 /**
@@ -44,11 +46,22 @@ class HomeFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.startFullCpuLoad)?.setOnClickListener {
-            JNIResourceBlocker.useFullCPU()
+            val numOfThreads = view.findViewById<EditText>(R.id.numOfThreads).text.toString()
+            if(numOfThreads == ""){
+                JNIResourceBlocker.useFullCPU(5)
+            }else{
+                JNIResourceBlocker.useFullCPU(numOfThreads.toInt())
+            }
         }
 
         view.findViewById<Button>(R.id.useFullMemory)?.setOnClickListener {
-            JNIResourceBlocker.useFullMemory()
+            val numOfThreads = view.findViewById<EditText>(R.id.threadsForMemory).text.toString()
+            val aMBperSec = view.findViewById<EditText>(R.id.memoryUsed).text.toString()
+            if(numOfThreads == ""){
+                JNIResourceBlocker.useFullMemory(5, aMBperSec.toInt())
+            }else{
+                JNIResourceBlocker.useFullMemory(numOfThreads.toInt(), aMBperSec.toInt())
+            }
         }
     }
 }
